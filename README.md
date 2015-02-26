@@ -21,3 +21,13 @@ BitPay language cores are designated by the name bitpay-\<language\>, for exampl
 We are working to extend the language cores to provide simple methods that access every part of the BitPay api. The versioning scheme for language cores is **api version**.**functional spec version**.**patch level**, e.g. `v2.2.1` indicates that the core uses api version 2, meets functional specification 2, and is at patch level 1. The functional specification is described in the the feature files located in the features folder. This spec is written in Gherkin. A developer interested in creating a core that doesn't exist such as Haskell can use the feature files to correctly version their core.
 
 The feature files are tagged per api version and functional specification level.
+
+## Request Syntax
+
+BitPay API endpoints can generally be accessed through either `get` or `create` methods. For example, in ruby, the method `create_invoice(params)` will generate a POST message to the '/invoices' endpoint with whatever parameters you pass into the method.
+
+Similary, `get_invoice` will send a GET request to the '/invoices' endpoint with the arguments that you inlcude. `get_invoice_by_id` will send a GET request to the '/invoices/\<id\>' endpoint, where id is an `id` parameter that you pass into the method. The `by` syntax can be reused, e.g. `get_invoice_by_id_by_events`.
+
+A point of potential confusion: all method names are singular, all endpoints are not. To send a request to the '/payouts' endpoint, you use the method `get_payout`, not `get_payouts`. We may improve this to accept either in a future release.
+
+Method names follow the convention of the language. Equivalent methods in Php are named `getInvoice` or `createInvoice`.
